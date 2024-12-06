@@ -1,3 +1,5 @@
+package ru.yandex.javacourse.lenkov.schedule.task;
+
 import java.util.ArrayList;
 
 public class Epic extends Task {

@@ -1,3 +1,10 @@
+package ru.yandex.javacourse.lenkov.schedule.manager;
+
+import ru.yandex.javacourse.lenkov.schedule.task.Status;
+import ru.yandex.javacourse.lenkov.schedule.task.Epic;
+import ru.yandex.javacourse.lenkov.schedule.task.Subtask;
+import ru.yandex.javacourse.lenkov.schedule.task.Task;
+
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -14,10 +21,6 @@ public class TaskManager {
         currentId = 0;
     }
 
-    private int generateId() {
-        return ++currentId;
-    }
-
     public Integer createTask(Task task) {
         int id = generateId();
         task.setId(id);
@@ -32,7 +35,6 @@ public class TaskManager {
         return id;
     }
 
-    // Один момент, не совсем понимаю, нужно ли устанавливать epicId сабтаске, чтоб привязать ее к эпику определенному, или оно уже тут само как-то установлено?
     public Integer createSubTask(Subtask subTask) {
         int epicId = subTask.getEpicId();
         Epic epic = epics.get(epicId);
@@ -93,11 +95,11 @@ public class TaskManager {
     }
 
     public void removeEpic(int id) {
-        Epic epic = epics.remove(id); // а метод remove после удаления также возвращает ссылку на удаляемый объект?
-        if (epic == null) { // Не совсем понимаю, а как этот эпик может быть null? Мы же пока только его из
-            return;         // HashMap удалили, а сам объект не трогали, еще вопрос, объект эпик считается null если
-                            // все его поля null или как?
+        Epic epic = epics.remove(id);
+        if (epic == null) {
+            return;
         }
+
         for (Integer subTaskId : epic.getSubTasksIds()) {
             subTasks.remove(subTaskId);
         }
@@ -154,6 +156,19 @@ public class TaskManager {
         savedEpic.setDescription(epic.getDescription());
     }
 
+    public ArrayList<Subtask> getAllSubTasks (Epic epic) {
+        ArrayList<Subtask> epicSubTasks = new ArrayList<>();
+        for(Integer id : epic.getSubTasksIds()) {
+            epicSubTasks.add(subTasks.get(id));
+        }
+
+        return epicSubTasks;
+    }
+
+    private int generateId() {
+        return ++currentId;
+    }
+
     private void updateEpicStatus(int epicId) {
         Epic epic = epics.get(epicId);
         if (epic.getSubTasksIds().isEmpty()) {
@@ -172,10 +187,6 @@ public class TaskManager {
         if (allNew) { epic.setStatus(Status.NEW); }
         else if (allDone) { epic.setStatus(Status.DONE); }
         else { epic.setStatus(Status.IN_PROGRESS); }
-    }
-
-    public ArrayList<Integer> getAllSubTasks (Epic epic) {
-        return epic.getSubTasksIds();
     }
 }
 

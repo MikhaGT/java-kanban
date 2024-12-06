@@ -1,5 +1,11 @@
-// package ru.yandex.javacourse.lenkov.schedule; не совсем разобрался как его правильно сделать, по факту чтоб
-// ошибку не выдавало, нужна будет такая же файловая иерархия как написано на package и ничего больше, верно?
+package ru.yandex.javacourse.lenkov.schedule;
+
+import ru.yandex.javacourse.lenkov.schedule.manager.TaskManager;
+import ru.yandex.javacourse.lenkov.schedule.task.Status;
+import ru.yandex.javacourse.lenkov.schedule.task.Epic;
+import ru.yandex.javacourse.lenkov.schedule.task.Subtask;
+import ru.yandex.javacourse.lenkov.schedule.task.Task;
+
 
 public class Main {
 
@@ -21,7 +27,6 @@ public class Main {
         System.out.println(taskManager.getAllEpics());
         System.out.println(taskManager.getAllSubTasks());
 
-        //Почему-то не хочет менять статус таскам, может я тесты не правильно написал?
         Task newTask1 = new Task("Car", "Fix it");
         newTask1.setStatus(Status.IN_PROGRESS);
         taskManager.updateTask(newTask1);

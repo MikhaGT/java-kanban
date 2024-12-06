@@ -1,3 +1,5 @@
+package ru.yandex.javacourse.lenkov.schedule.task;
+
 import java.util.Objects;
 
 public class Task {
@@ -47,7 +49,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "ru.yandex.javacourse.lenkov.schedule.task.Task{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +
