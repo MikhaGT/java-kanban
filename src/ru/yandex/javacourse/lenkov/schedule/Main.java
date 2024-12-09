@@ -1,6 +1,6 @@
 package ru.yandex.javacourse.lenkov.schedule;
 
-import ru.yandex.javacourse.lenkov.schedule.manager.TaskManager;
+import ru.yandex.javacourse.lenkov.schedule.manager.InMemoryTaskManager;
 import ru.yandex.javacourse.lenkov.schedule.task.Status;
 import ru.yandex.javacourse.lenkov.schedule.task.Epic;
 import ru.yandex.javacourse.lenkov.schedule.task.Subtask;
@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        TaskManager taskManager = new TaskManager();
+        InMemoryTaskManager taskManager = new InMemoryTaskManager();
 
         int task1 = taskManager.createTask(new Task("Car", "Fix it"));
         int task2 = taskManager.createTask(new Task("Bed", "Make it"));
