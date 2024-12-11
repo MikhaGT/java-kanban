@@ -7,15 +7,13 @@ import ru.yandex.javacourse.lenkov.schedule.task.Task;
 
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-/* Я немного не понял межклассовою связь, зачем как написано в задании, InMemoryTaskManager имплементировать
-HistoryManager если его реализовал уже InMemoryHistoryManager, теперь по идее тут мы должны просто пользоваться классом
-InMemoryHistoryManager для двух методов add() и getHistory() и все, так?
-*/
 public class InMemoryTaskManager implements TaskManager {
-    private final HashMap<Integer, Task> tasks;
-    private final HashMap<Integer, Epic> epics;
-    private final HashMap<Integer, Subtask> subTasks;
+    private final Map<Integer, Task> tasks;
+    private final Map<Integer, Epic> epics;
+    private final Map<Integer, Subtask> subTasks;
     private final HistoryManager historyManager;
     private int currentId;
 
@@ -95,20 +93,23 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTask(int id) {
-        historyManager.add(tasks.get(id));
-        return tasks.get(id);
+        final Task task = tasks.get(id);
+        historyManager.add(task);
+        return task;
     }
 
     @Override
     public Epic getEpic(int id) {
-        historyManager.add(epics.get(id));
-        return epics.get(id);
+        final Epic epic = epics.get(id);
+        historyManager.add(epic);
+        return epic;
     }
 
     @Override
     public Subtask getSubTask(int id) {
-        historyManager.add(subTasks.get(id));
-        return subTasks.get(id);
+        final Subtask subTask = subTasks.get(id);
+        historyManager.add(subTask);
+        return subTask;
     }
 
     @Override
@@ -174,13 +175,14 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateEpic(Epic epic) {
-        Epic savedEpic = epics.get(epic.getId());
+        final Epic savedEpic = epics.get(epic.getId());
         if (savedEpic == null) {
             return;
         }
 
-        savedEpic.setName(epic.getName());
-        savedEpic.setDescription(epic.getDescription());
+        epic.setSubTasksIds(savedEpic.getSubTasksIds());
+        epic.setStatus(savedEpic.getStatus());
+        epics.put(epic.getId(), epic);
     }
 
     @Override
@@ -193,7 +195,8 @@ public class InMemoryTaskManager implements TaskManager {
         return epicSubTasks;
     }
 
-    public ArrayList<Task> getHistory() {
+    @Override
+    public List<Task> getHistory() {
         return historyManager.getHistory();
     }
 

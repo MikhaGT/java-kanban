@@ -3,19 +3,25 @@ package ru.yandex.javacourse.lenkov.schedule.manager;
 import ru.yandex.javacourse.lenkov.schedule.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private final ArrayList<Task> history = new ArrayList<>(10);
+    private final List<Task> history = new ArrayList<>(HISTORY_SIZE);
+    private final static int HISTORY_SIZE = 10;
 
     public void add(Task task) {
-        if(history.size() > 10) {
+        if (task == null) {
+            return;
+        }
+
+        if (history.size() > HISTORY_SIZE) {
             history.removeFirst();
         }
 
         history.add(task);
     }
 
-    public ArrayList<Task> getHistory() {
+    public List<Task> getHistory() {
         return history;
     }
 }

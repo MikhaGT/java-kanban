@@ -4,7 +4,7 @@ import ru.yandex.javacourse.lenkov.schedule.task.Epic;
 import ru.yandex.javacourse.lenkov.schedule.task.Subtask;
 import ru.yandex.javacourse.lenkov.schedule.task.Task;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface TaskManager {
     Integer createTask(Task task);
@@ -13,11 +13,11 @@ public interface TaskManager {
 
     Integer createSubTask(Subtask subTask);
 
-    ArrayList<Task> getAllTasks();
+    List<Task> getAllTasks();
 
-    ArrayList<Epic> getAllEpics();
+    List<Epic> getAllEpics();
 
-    ArrayList<Subtask> getAllSubTasks();
+    List<Subtask> getAllSubTasks();
 
     void deleteAllTasks();
 
@@ -43,6 +43,8 @@ public interface TaskManager {
 
     void updateEpic(Epic epic);
 
-    ArrayList<Subtask> getAllSubTasks(Epic epic);
+    List<Subtask> getAllSubTasks(Epic epic);
+
+    List<Task> getHistory();
 
 }

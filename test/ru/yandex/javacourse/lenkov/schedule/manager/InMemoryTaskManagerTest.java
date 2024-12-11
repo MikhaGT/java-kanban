@@ -99,21 +99,18 @@ class InMemoryTaskManagerTest {
         assertNotEquals(epic1.getId(), subtask1.getId());
     }
 
-    // Может тоже не понял что от меня требовалось протестировать, вроде как все верно должно быть, но test failed.
     @Test
     public void testTaskImmutabilityAfterAdding() {
-        task1.setName("Task1 modified");
-        task1.setDescription("Description1 modified");
-        task1.setStatus(Status.DONE);
-
-        assertEquals("Task1", task1.getName());
-        assertEquals("Description1", task1.getDescription());
-        assertEquals(Status.NEW, task1.getStatus());
+        manager.createTask(task1);
+        assertEquals(task1, manager.getTask(task1.getId()));
     }
-//    Не понимаю описание последнего теста, что значит "убедитесь, что задачи, добавляемые в HistoryManager,
-//    сохраняют предыдущую версию задачи и её данных."
-//    @Test
-//    public void testHistoryManager() {
-//
-//    }
+
+    @Test
+    public void testHistoryManager() {
+        manager.createTask(task1);
+        manager.getTask(task1.getId());
+        task2.setId(task1.getId());
+        manager.updateTask(task2);
+        assertEquals(task1, manager.getHistory().getFirst());
+    }
 }
