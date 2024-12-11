@@ -1,20 +1,21 @@
 package ru.yandex.javacourse.lenkov.schedule.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Epic extends Task {
-    private ArrayList<Integer> subTasksIds;
+    private List<Integer> subTasksIds;
 
     public Epic(String name, String description) {
         super(name, description);
         subTasksIds = new ArrayList<>();
     }
 
-    public ArrayList<Integer> getSubTasksIds() {
+    public List<Integer> getSubTasksIds() {
         return subTasksIds;
     }
 
-    public void setSubTasksIds(ArrayList<Integer> ids) {
+    public void setSubTasksIds(List<Integer> ids) {
         subTasksIds = ids;
     }
 
@@ -31,5 +32,16 @@ public class Epic extends Task {
 
     public void cleanSubTaskIds() {
         subTasksIds.clear();
+    }
+
+    @Override
+    public String toString() {
+        return "Epic{" +
+                "subTasksIds=" + subTasksIds +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", id=" + id +
+                ", status=" + status +
+                '}';
     }
 }

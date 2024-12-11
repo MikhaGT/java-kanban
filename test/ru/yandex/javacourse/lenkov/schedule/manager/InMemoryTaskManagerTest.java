@@ -111,6 +111,8 @@ class InMemoryTaskManagerTest {
         manager.getTask(task1.getId());
         task2.setId(task1.getId());
         manager.updateTask(task2);
-        assertEquals(task1, manager.getHistory().getFirst());
+        assertEquals(task1.getName(), manager.getHistory().getFirst().getName());
+        assertEquals(task1.getDescription(), manager.getHistory().getFirst().getDescription());
+        assertEquals(task1.getStatus(), manager.getHistory().getFirst().getStatus());
     }
 }
